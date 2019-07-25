@@ -4,10 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dragula.css">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.js'></script>
 </head>
 <body>
-    <script src="main.js"></script>
+    <div id="root">
+        <div id="timetable">
+            <div id="containers">
+                <div id="col-1" class="col">
+                    <ul id="container-1" class="container">
+                        container-1
+                        <li>1</li>
+                        <li>2</li>
+                    </ul>
+                    <div class="btn-add-item">Add</div>
+                </div>
+                <div id="col-2" class="col">
+                    <ul id="container-2" class="container">
+                        container-2
+                        <li>3</li>
+                        <li>4</li>
+                    </ul>
+                    <div class="btn-add-item">Add</div>
+                </div>
+            </div>
+            <div id="add-container">Add</div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+    
 </body>
 </html>

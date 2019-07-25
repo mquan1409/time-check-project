@@ -1,0 +1,89 @@
+*:focus {
+    outline:none;
+}
+    
+body {
+    background-color: #29485F
+}
+
+.container {
+    width: 1000px;
+    margin: 100px auto;
+    text-align: center
+}
+
+.container .login-form {
+    position: relative;
+    background-color: #fff;
+    width: 300px;
+    padding: 10px;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0 auto
+}
+
+.container .login-form h2 {
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 10px 10px 10px 10px;
+}
+
+.container .login-form hr {
+    border: 1px solid #e6e6e6;
+}
+
+.container .login-form form {
+    margin: auto;
+}
+
+.container .login-form form input {
+    padding: 10px;
+    width:255px;
+    margin: 10px 0 10px 0;
+    display: block;
+}
+
+.container .login-form form input:not(:last-of-type),hr {
+    margin: 20px 10px 10px 10px;
+}
+
+.container .login-form form input:not(:last-of-type) {
+    width: 256px;
+}
+
+.container .login-form form input:nth-last-of-type(2) {
+}
+
+.container .login-form form p {
+    text-align: left;
+    margin: 20px 20px 20px 10px;
+    color: #49A9F5;
+    cursor: pointer;
+    width:160px;
+}
+
+.container .login-form form input:last-of-type {
+    width: 100%;
+    background-color:#2196F3;
+    border: none;
+    color: #fff;
+    margin-bottom: 0;
+    padding:20px; 
+    cursor: pointer;
+    display: block
+}
+
+.container .login-form form i {
+    position: absolute;
+    right: 20px;
+    top:160px;
+    cursor: pointer;
+}
+
+
+/* .container .login-form form .fa-user {
+    position: absolute;
+    left: -10px;
+    top: 100px;
+} */
