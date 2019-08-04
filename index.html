@@ -8,26 +8,36 @@
     <link rel="stylesheet" href="css/dragula.css">
     <title>Document</title>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
     <div id="root">
         <div id="timetable">
             <div id="containers">
                 <div id="col-1" class="col">
-                    <ul id="container-1" class="container">
+                    <ul id="1" class="container">
                         container-1
-                        <li>1</li>
-                        <li>2</li>
+                        <li id="c1-i1">
+                            <div contenteditable="true" style="outline:0px;">1</div>
+                            <span class="btn-write">w</span>
+                        </li>
+                        <li id="c1-i2">2
+                            <div class="btn-write">w</div>
+                        </li>
                     </ul>
-                    <div class="btn-add-item">Add</div>
+                    <div id="c1-i3" class="btn-add-item">Add</div>
                 </div>
                 <div id="col-2" class="col">
-                    <ul id="container-2" class="container">
+                    <ul id="2" class="container">
                         container-2
-                        <li>3</li>
-                        <li>4</li>
+                        <li id="c2-i1">3
+                            <div class="btn-write">w</div>
+                        </li>
+                        <li id="c2-i2">4
+                            <div class="btn-write">w</div>
+                        </li>
                     </ul>
-                    <div class="btn-add-item">Add</div>
+                    <div id="c2-i3" class="btn-add-item">Add</div>
                 </div>
             </div>
             <div id="add-container">Add</div>

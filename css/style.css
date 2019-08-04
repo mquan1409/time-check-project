@@ -19,10 +19,15 @@
     padding: 0px 0px 10px 0px;
 }
 .container li {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 180px;
     border: 4px solid red;
     margin: 5px;
     list-style: none;
     min-height: 20px;
+    word-wrap: break-word;
 }
 
 #add-container{
@@ -35,4 +40,11 @@
 #timetable{
     display: flex;
     flex-flow: row;
+}
+
+.container li .btn-write{
+    position: absolute;
+    border: 2px solid gray;
+    top: 0px;
+    right: 2px;
 }

@@ -1,9 +1,20 @@
+function addWriteButtonEvent(writeButton){
+    writeButton.addEventListener("click",(e)=>{
+        console.log("click");
+    });
+}
+
 function addItemButtonEvent(addItemButton){
     addItemButton.addEventListener("click",(e)=>{
         var newItem = `
-            <li>+</li>
+            <li>+
+                <div class="btn-write">w</div>
+            </li>
         `;
         e.target.parentNode.getElementsByClassName("container")[0].insertAdjacentHTML("beforeend",newItem);
+        
+        var writeButtons = document.getElementsByClassName("btn-write");
+
     })
 }
 
@@ -20,7 +31,7 @@ addContainer.addEventListener("click",function(e){
     colNumber++;
     var newCol = `
         <div id="col-${colNumber}" class="col">
-            <ul id="container-${colNumber}" class="container">
+            <ul id="${colNumber}" class="container">
                 container-${colNumber}
             </ul>
             <div id="btn-add-item-${colNumber}" class="btn-add-item">Add</div>
@@ -35,6 +46,12 @@ var addItemButtons = document.getElementsByClassName("btn-add-item");
 
 for(var i=0;i<addItemButtons.length;i++){
     addItemButtonEvent(addItemButtons[i]);
+}
+
+var writeButtons = document.getElementsByClassName("btn-write");
+
+for(var i=0;i<writeButtons.length;i++){
+    addWriteButtonEvent(writeButtons[i]);
 }
 
 
