@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,29 +14,40 @@
         <div id="timetable">
             <div id="containers">
                 <div id="col-1" class="col">
-                    <ul id="1" class="container">
+                    <ul id="container-1" class="container">
                         container-1
-                        <li id="c1-i1">
-                            <div contenteditable="true" style="outline:0px;">1</div>
-                            <span class="btn-write">w</span>
-                        </li>
-                        <li id="c1-i2">2
+                        <li>
+                            <span class="item-display">1 </span>
+                            <textarea class="item-content" name="" id="" cols="30" rows="10"></textarea>
                             <div class="btn-write">w</div>
+                            <div class="btn-delete-item"></div>
+                        </li>
+                        <li>
+                            <span class="item-display">2</span>
+                            <textarea class="item-content" name="" id="" cols="30" rows="10"></textarea>
+                            <div class="btn-write">w</div>
+                            <div class="btn-delete-item"></div>
                         </li>
                     </ul>
-                    <div id="c1-i3" class="btn-add-item">Add</div>
+                    <div class="btn-add-item">Add</div>
                 </div>
                 <div id="col-2" class="col">
-                    <ul id="2" class="container">
+                    <ul id="container-2" class="container">
                         container-2
-                        <li id="c2-i1">3
+                        <li>
+                            <span class="item-display">3 </span>
+                            <textarea class="item-content" name="" id="" cols="30" rows="10"></textarea>
                             <div class="btn-write">w</div>
+                            <div class="btn-delete-item"></div>
                         </li>
-                        <li id="c2-i2">4
+                        <li>
+                            <span class="item-display">4 </span>
+                            <textarea class="item-content" name="" id="" cols="30" rows="10"></textarea>
                             <div class="btn-write">w</div>
+                            <div class="btn-delete-item"></div>
                         </li>
                     </ul>
-                    <div id="c2-i3" class="btn-add-item">Add</div>
+                    <div class="btn-add-item">Add</div>
                 </div>
             </div>
             <div id="add-container">Add</div>
