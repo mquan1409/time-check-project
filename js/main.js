@@ -1,6 +1,8 @@
 function selectElementContents(el) {
+    console.log("kay2");
     var range = document.createRange();
     range.selectNodeContents(el);
+    console.log(range);
     var sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
@@ -10,6 +12,8 @@ function barContainerHeadingEvent(){
     $(".container-heading").focus(function(){
         $(this).addClass("focus-container-heading");
         var el = this;
+        console.log(el);
+        console.log(typeof(el));
         requestAnimationFrame(function() {
             selectElementContents(el);
         });
@@ -20,17 +24,28 @@ function barContainerHeadingEvent(){
 }
 
 function btnWriteEvent(){
+    $(".write-item-screen").hide();
     $(".item-content").hide();
     $(".btn-write").click(function(){
         $(this).parent().find(".item-display").hide()
         $(this).parent().find(".item-content").show();
+        $(this).parent().find(".write-item-screen").show();
         $(this).parent().find(".item-content").focus();
-        $(".item-content").focusout(function(){
+        // $(this).parent().find(".item-content").focus(function(){
+        //     console.log("kay")
+        //     el = this;
+        //     console.log(el);
+        //     requestAnimationFrame(function() {
+        //         selectElementContents(el);
+        //     });
+        // });
+        $(".write-item-screen").click(function(){
             if($(this).parent().find(".item-content").val()==""){
                 $(this).parent().remove();
             }
             $(".item-content").hide();
-            $("span:hidden").html($(this).val());
+            $("span:hidden").html($(this).parent().find(".item-content").val());
+            $(this).parent().find(".write-item-screen").hide();
             $(".item-display").show();
         });
     })
@@ -63,7 +78,8 @@ function btnAddItemEvent(){
         var newItem = `
             <li>
                 <span class="item-display">+ </span>
-                <textarea class="item-content" name="" id="" cols="30" rows="10"></textarea>
+                <textarea class="item-content" name="" id="" cols="23" rows="6"></textarea>
+                <div class="write-item-screen"></div>
                 <div class="btn-write">
                     <i class="fas fa-pen"></i>
                 </div>
@@ -151,7 +167,22 @@ containers.on('dragend', function(e) {
 var addContainer = document.getElementById("add-container");
 var colNumber = 2;
 
+$(".more-tasks").hide()
+$(".btn-more").click(function(){
+    $(".more-tasks").show();
+    
+});
+// $("#board").click(function(){
+//     $(".more-tasks").hide();
+// });
 
+
+$(".btn-more").hover(function(){
+    $(this).attr("style","background-color: rgb(195, 200, 209)");
+},
+function(){
+    $(this).attr("style","background-color:#dfe1e6");
+})
 
 btnAddContainerEvent();
 

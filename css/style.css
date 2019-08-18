@@ -122,6 +122,7 @@ html{
 }
 
 .container-heading{
+    width:79%;
     padding: 5px 4px 5px 5px;
     margin-left: 4px;
     margin-right: 3px;
@@ -158,12 +159,47 @@ html{
     background-color:rgb(255, 255, 255);
 }
 
-/* .btn-write-screen{
-    position: fixed;
-    background-color: blue;
-
-} */
-
 .item-content{
-    
+    /* width: 150px;
+    height: 80px; */
+    outline: none;
+    z-index: 2;
+    background-color: white;
+    border: 0px solid white;
+    border-radius: 5px;
+}
+
+.write-item-screen{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: overlay;
+}
+
+.btn-more{
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    top: 11px;
+    right: 8px;
+    padding-top: 9px;
+    padding-bottom: 22px;
+    padding-left: 8px;
+    padding-right: 24px;
+    border-radius: 3px;
+    background-color: #dfe1e6;
+}
+
+.more-tasks{
+    background-color: #172b4d;
+    width: 150px;
+    height: 300px;
+    position: absolute;
+    top: 43px;
+    left: 160px;
+    z-index: 1;
 }
