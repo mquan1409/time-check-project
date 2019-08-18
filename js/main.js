@@ -1,4 +1,25 @@
-function addBtnWriteEvent(){-
+function selectElementContents(el) {
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+}
+
+function barContainerHeadingEvent(){
+    $(".container-heading").focus(function(){
+        $(this).addClass("focus-container-heading");
+        var el = this;
+        requestAnimationFrame(function() {
+            selectElementContents(el);
+        });
+    });
+    $(".container-heading").focusout(function(){
+        $(this).removeClass("focus-container-heading");
+    });
+}
+
+function btnWriteEvent(){
     $(".item-content").hide();
     $(".btn-write").click(function(){
         $(this).parent().find(".item-display").hide()
@@ -31,26 +52,28 @@ function addBtnWriteEvent(){-
     );
 }
 
-function addBtnDeleteItemEvent(){
+function btnDeleteItemEvent(){
     $(".btn-delete-item").click(function(){
         $(this).parent().remove();
     })    
 }
 
-function addItemButtonEvent(){
+function btnAddItemEvent(){
     $(".btn-add-item").click(function(e){
         var newItem = `
             <li>
                 <span class="item-display">+ </span>
                 <textarea class="item-content" name="" id="" cols="30" rows="10"></textarea>
-                <div class="btn-write">w</div>
+                <div class="btn-write">
+                    <i class="fas fa-pen"></i>
+                </div>
                 <div class="btn-delete-item"></div>
             </li>
         `;
         $(".btn-write").unbind();
         e.target.parentNode.getElementsByClassName("container")[0].insertAdjacentHTML("beforeend",newItem);
-        addBtnWriteEvent();
-        addBtnDeleteItemEvent();
+        btnWriteEvent();
+        btnDeleteItemEvent();
         console.log($(this).siblings().find(".btn-write").last());
         $(this).siblings().find(".btn-write").last().trigger("click");
     });
@@ -63,7 +86,7 @@ function addItemButtonEvent(){
         });
 }
 
-function addBtnDeleteColEvent(){
+function btnDeleteColEvent(){
     $(".btn-delete-col").click(function(){
         $(this).parent().remove();
         // containers.containers.splice(colNumberInArray,1);
@@ -91,14 +114,17 @@ function btnAddContainerEvent(){
         $(".btn-add-item").unbind();
         $(this).before(newCol);
         containers.containers.push(document.getElementById(`container-${colNumber}`));
-        addItemButtonEvent();
-        addBtnDeleteColEvent();
+        btnAddItemEvent();
+        btnDeleteColEvent();
+        $(".container-heading").unbind();
+        barContainerHeadingEvent();
         $(".container-heading").last().focus();
         $(".container-heading").last().focusout(function(){
             if($(".container-heading").last().text()==""){
                 $(".container-heading").last().parent().parent().remove();
             }
         });
+        
     });
     $("#add-container").hover(
         function(){
@@ -111,28 +137,33 @@ function btnAddContainerEvent(){
 
 }
 
+
 const containers = dragula([...document.getElementsByClassName("container")],{
     // revertOnSpill:true
 });
 containers.on('drag',function(e){
     e.classList.add('is-moving');
-})
+});
+containers.on('dragend', function(e) {
+	e.classList.remove('is-moving');
+});
 
 var addContainer = document.getElementById("add-container");
 var colNumber = 2;
 
 
+
 btnAddContainerEvent();
 
-addItemButtonEvent();
+btnAddItemEvent();
 
-addBtnWriteEvent();
+btnWriteEvent();
 
-addBtnDeleteItemEvent();
+btnDeleteItemEvent();
 
-addBtnDeleteColEvent();
+btnDeleteColEvent();
 
-
+barContainerHeadingEvent();
 
 
 
