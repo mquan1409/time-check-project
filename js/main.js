@@ -167,22 +167,46 @@ containers.on('dragend', function(e) {
 var addContainer = document.getElementById("add-container");
 var colNumber = 2;
 
-$(".more-tasks").hide()
+$(".more-tasks").hide();
+$(".more-screen").hide();
 $(".btn-more").click(function(){
-    $(".more-tasks").show();
+    $(this).parent().find(".more-tasks").show();
+    $(this).parent().find(".more-tasks").css("z-index","2");
+    $(this).parent().find(".more-screen").show();
+    $(this).css("z-index","2");
+    $(this).css("background-color","rgb(195, 200, 209)");
     
 });
-// $("#board").click(function(){
-//     $(".more-tasks").hide();
-// });
+
+$(".more-screen").click(function(){
+    $(this).hide();
+    $(this).parent().find(".more-tasks").hide();
+    $(this).parent().find(".more-tasks").css("z-index","1");
+    $(this).parent().find(".btn-more").css("z-index","1");
+    $(this).parent().find(".btn-more").css("background-color","#dfe1e6");
+});
 
 
 $(".btn-more").hover(function(){
-    $(this).attr("style","background-color: rgb(195, 200, 209)");
+    $(this).css("background-color","rgb(195, 200, 209)");
 },
 function(){
-    $(this).attr("style","background-color:#dfe1e6");
+    $(this).css("background-color","#dfe1e6");
 })
+
+$(".task").hover(function(){
+    $(this).css("background-color","rgb(245, 246, 248)")
+},
+function(){
+    $(this).css("background-color","white");
+});
+
+$(".btn-delete-item").hide();
+$(".delete-item-screen").hide();
+$(".btn-delete-col").hide();
+$(".delete-col-screen").hide();
+
+
 
 btnAddContainerEvent();
 
@@ -195,6 +219,8 @@ btnDeleteItemEvent();
 btnDeleteColEvent();
 
 barContainerHeadingEvent();
+
+
 
 
 
