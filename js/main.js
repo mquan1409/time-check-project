@@ -1,19 +1,16 @@
 function selectElementContents(el) {
-    console.log("kay2");
     var range = document.createRange();
     range.selectNodeContents(el);
-    console.log(range);
     var sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
 }
 
 function barContainerHeadingEvent(){
+    $(".container-heading").unbind();
     $(".container-heading").focus(function(){
         $(this).addClass("focus-container-heading");
         var el = this;
-        console.log(el);
-        console.log(typeof(el));
         requestAnimationFrame(function() {
             selectElementContents(el);
         });
@@ -24,6 +21,7 @@ function barContainerHeadingEvent(){
 }
 
 function btnWriteEvent(){
+    $(".btn-write").unbind();
     $(".write-item-screen").hide();
     $(".item-content").hide();
     $(".btn-write").click(function(){
@@ -31,20 +29,20 @@ function btnWriteEvent(){
         $(this).parent().find(".item-content").show();
         $(this).parent().find(".write-item-screen").show();
         $(this).parent().find(".item-content").focus();
-        // $(this).parent().find(".item-content").focus(function(){
-        //     console.log("kay")
-        //     el = this;
-        //     console.log(el);
-        //     requestAnimationFrame(function() {
-        //         selectElementContents(el);
-        //     });
-        // });
+        $(this).parent().find(".item-content").focus(function(){
+            console.log("kay")
+            e = this;
+            console.log(e);
+            requestAnimationFrame(function(){
+                selectElementContents(e);
+            });
+        });
         $(".write-item-screen").click(function(){
-            if($(this).parent().find(".item-content").val()==""){
+            if($(this).parent().find(".item-content").html()==""){
                 $(this).parent().remove();
             }
             $(".item-content").hide();
-            $("span:hidden").html($(this).parent().find(".item-content").val());
+            $("span:hidden").html($(this).parent().find(".item-content").html());
             $(this).parent().find(".write-item-screen").hide();
             $(".item-display").show();
         });
@@ -74,24 +72,28 @@ function btnDeleteItemEvent(){
 }
 
 function btnAddItemEvent(){
+    $(".btn-add-item").unbind();
     $(".btn-add-item").click(function(e){
         var newItem = `
-            <li>
-                <span class="item-display">+ </span>
-                <textarea class="item-content" name="" id="" cols="23" rows="6"></textarea>
-                <div class="write-item-screen"></div>
-                <div class="btn-write">
-                    <i class="fas fa-pen"></i>
-                </div>
-                <div class="btn-delete-item"></div>
-            </li>
+        <li>
+            <span class="item-display"> </span>
+            <div class="write-item-screen"></div>
+            <div contenteditable="true" class="item-content" ></div>
+            <div class="btn-write">
+                <i class="fas fa-pen"></i>
+            </div>
+            <div class="btn-delete-item">
+                <i class="fas fa-minus-circle"></i>
+            </div>
+        </li>
         `;
-        $(".btn-write").unbind();
+        
         e.target.parentNode.getElementsByClassName("container")[0].insertAdjacentHTML("beforeend",newItem);
         btnWriteEvent();
         btnDeleteItemEvent();
         console.log($(this).siblings().find(".btn-write").last());
         $(this).siblings().find(".btn-write").last().trigger("click");
+        btnMoreTasksEvent();
     });
     $(".btn-add-item").hover(
         function(){
@@ -100,9 +102,11 @@ function btnAddItemEvent(){
         function(){
             $(this).attr("style","background-color:#dfe1e6");
         });
+    
 }
 
 function btnDeleteColEvent(){
+    $(".btn-delete-col").unbind();
     $(".btn-delete-col").click(function(){
         $(this).parent().remove();
         // containers.containers.splice(colNumberInArray,1);
@@ -113,26 +117,39 @@ function btnAddContainerEvent(){
     $("#add-container").click(function(e){
         colNumber++;
         var newCol = `
-            <div id="col-${colNumber}" class="col">
-                <div class="col-content">
-                    <div class="container-heading" contenteditable="true" style="outline:0px;"></div>
-                    <ul id="container-${colNumber}" class="container">
-                    </ul>
-                    <div id="btn-add-item-${colNumber}" class="btn-add-item">
-                        <i class="fas fa-plus"></i>
-                        Add another card
+        <div id="col-${colNumber}" class="col">
+            <div class="delete-item-screen"></div>
+            <div class="col-content">
+                <div class="btn-more">
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+                <div class="more-tasks">
+                    <div class="more-tasks-content">
+                        <div class="more-heading">List Actions</div>
+                        <div class="task task-delete-item">Delete Card</div>
+                        <div class="task task-delete-col">Delete Container</div>
+                        <div class="task task-add-item">Add Card...</div>
                     </div>
                 </div>
-                <div class="btn-delete-col"></div>
+                <div class="more-screen"></div>
+                <div class="container-heading" contenteditable="true" style="outline:0px;"></div>
+                <ul id="container-${colNumber}" class="container">
+                </ul>
+                <div class="btn-add-item">
+                    <i class="fas fa-plus"></i>
+                    Add another card
+                </div>
             </div>
+            <div class="btn-delete-col">
+                <i class="fas fa-minus-circle"></i>
+            </div>  
+        </div>
         `
-        $(".btn-delete-col").unbind();
-        $(".btn-add-item").unbind();
         $(this).before(newCol);
         containers.containers.push(document.getElementById(`container-${colNumber}`));
         btnAddItemEvent();
         btnDeleteColEvent();
-        $(".container-heading").unbind();
+        
         barContainerHeadingEvent();
         $(".container-heading").last().focus();
         $(".container-heading").last().focusout(function(){
@@ -140,6 +157,7 @@ function btnAddContainerEvent(){
                 $(".container-heading").last().parent().parent().remove();
             }
         });
+        btnMoreTasksEvent();
         
     });
     $("#add-container").hover(
@@ -153,6 +171,94 @@ function btnAddContainerEvent(){
 
 }
 
+function btnMoreTasksEvent(){
+    $(".btn-more").unbind();
+    $(".task").unbind();
+    $(".more-tasks").hide();
+    $(".more-screen").hide();
+    $(".btn-delete-item").hide();
+    $(".delete-item-screen").hide();
+    $(".btn-delete-col").hide();
+    $(".delete-col-screen").hide();
+
+    $(".btn-more").click(function(){
+        $(this).parent().find(".more-tasks").show();
+        $(this).parent().find(".more-tasks").css("z-index","2");
+        $(this).parent().find(".more-screen").show();
+        $(this).css("z-index","2");
+        $(this).css("background-color","rgb(195, 200, 209)");
+        
+    });
+
+    $(".more-screen").click(function(){
+        $(this).hide();
+        $(this).parent().find(".more-tasks").hide();
+        $(this).parent().find(".more-tasks").css("z-index","1");
+        $(this).parent().find(".btn-more").css("z-index","1");
+        $(this).parent().find(".btn-more").css("background-color","#dfe1e6");
+    });
+
+
+    $(".btn-more").hover(function(){
+        $(this).css("background-color","rgb(195, 200, 209)");
+    },
+    function(){
+        $(this).css("background-color","#dfe1e6");
+    })
+
+    $(".task").hover(function(){
+        $(this).css("background-color","rgb(245, 246, 248)")
+    },
+    function(){
+        $(this).css("background-color","white");
+    });
+
+    $(".task").click(function(){
+        switch($(this).html()){
+            case 'Delete Card':
+                $(".more-tasks").hide();
+                $(".more-tasks").css("z-index","auto");
+                $(".more-screen").hide();
+                $(".btn-more").css("background-color","#dfe1e6");
+                $(".btn-more").css("z-index","auto");
+                $(this).parent().parent().parent().parent().find(".delete-item-screen").show();
+                $(this).parent().parent().parent().parent().find(".col-content").css("z-index","5");
+                $(this).parent().parent().parent().find(".btn-delete-item").show();
+                $(".delete-item-screen").click(function(){
+                    $(this).hide();
+                    $(this).parent().parent().parent().parent().find(".col-content").css("z-index","auto");
+                    $(".btn-delete-item").hide();
+                    $(".btn-more").css("z-index","auto");
+                });
+                break;
+            case 'Delete Container':
+                $(".more-tasks").hide();
+                $(".more-tasks").css("z-index","auto");
+                $(".more-screen").hide();
+                $(".btn-more").css("background-color","#dfe1e6");
+                $(".btn-more").css("z-index","auto");
+                $(this).parent().parent().parent().parent().parent().find(".delete-col-screen").show();
+                $(".col-content").css("z-index","5");
+                $(".btn-delete-col").show();
+                $(".btn-delete-col").css("z-index","5");
+                $(".delete-col-screen").click(function(){
+                    $(this).hide();
+                    $(".col-content").css("z-index","auto");
+                    $(".btn-delete-col").hide();
+                    $(".btn-delete-col").css("z-index","auto");
+                });
+                break;
+            case 'Add Card...':
+                $(".more-tasks").hide();
+                $(".more-tasks").css("z-index","auto");
+                $(".more-screen").hide();
+                $(".btn-more").css("background-color","#dfe1e6");
+                $(".btn-more").css("z-index","auto");
+                $(this).parent().parent().parent().find(".btn-add-item").trigger("click");
+                break;
+        }
+    });
+}
 
 const containers = dragula([...document.getElementsByClassName("container")],{
     // revertOnSpill:true
@@ -161,51 +267,11 @@ containers.on('drag',function(e){
     e.classList.add('is-moving');
 });
 containers.on('dragend', function(e) {
-	e.classList.remove('is-moving');
+    e.classList.remove('is-moving');
 });
 
 var addContainer = document.getElementById("add-container");
 var colNumber = 2;
-
-$(".more-tasks").hide();
-$(".more-screen").hide();
-$(".btn-more").click(function(){
-    $(this).parent().find(".more-tasks").show();
-    $(this).parent().find(".more-tasks").css("z-index","2");
-    $(this).parent().find(".more-screen").show();
-    $(this).css("z-index","2");
-    $(this).css("background-color","rgb(195, 200, 209)");
-    
-});
-
-$(".more-screen").click(function(){
-    $(this).hide();
-    $(this).parent().find(".more-tasks").hide();
-    $(this).parent().find(".more-tasks").css("z-index","1");
-    $(this).parent().find(".btn-more").css("z-index","1");
-    $(this).parent().find(".btn-more").css("background-color","#dfe1e6");
-});
-
-
-$(".btn-more").hover(function(){
-    $(this).css("background-color","rgb(195, 200, 209)");
-},
-function(){
-    $(this).css("background-color","#dfe1e6");
-})
-
-$(".task").hover(function(){
-    $(this).css("background-color","rgb(245, 246, 248)")
-},
-function(){
-    $(this).css("background-color","white");
-});
-
-$(".btn-delete-item").hide();
-$(".delete-item-screen").hide();
-$(".btn-delete-col").hide();
-$(".delete-col-screen").hide();
-
 
 
 btnAddContainerEvent();
@@ -219,6 +285,8 @@ btnDeleteItemEvent();
 btnDeleteColEvent();
 
 barContainerHeadingEvent();
+
+btnMoreTasksEvent();
 
 
 
