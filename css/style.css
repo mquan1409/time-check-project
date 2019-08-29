@@ -67,6 +67,7 @@ html{
     min-height: 20px;
     position: relative;
     color: #172b4d;
+    cursor: pointer;
 }
 
 .btn-write{
@@ -75,6 +76,7 @@ html{
     right: 2px;
     padding: 3px 3px 2px 4px;
     border-radius: 3px;
+    cursor: pointer;
 }
 
 #add-container{
@@ -84,6 +86,7 @@ html{
     color: #DEE6E7;
     margin-top: 15px;
     padding: 10px 5px 5px 11px;
+    cursor: pointer;
 }
 
 #board{
@@ -103,6 +106,7 @@ html{
     position: absolute;
     top: -5px;
     right: -5px;
+    cursor: pointer;
 }
 
 .btn-delete-col{
@@ -111,6 +115,7 @@ html{
     position: absolute;
     top: -5px;
     right: -5px;
+    cursor: pointer;
 }
 
 .container-heading{
@@ -128,6 +133,7 @@ html{
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 5px;
+    cursor: pointer;
 }
 .is-moving{
     /* border: 6px solid #172b4d;  */
@@ -136,14 +142,20 @@ html{
     transform: rotate(5deg);
     word-wrap: break-word;
     overflow: hidden;
+    cursor: grabbing;
 }
 #menu-bar{
-    height: 35px;
+    font-size: 22px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     width: 100%;
     display: flex;
     border-left: 10px;
     background-color: rgb(119, 153, 155);
     position: fixed;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
 
 }
 
@@ -165,6 +177,7 @@ html{
     position: absolute;
     top: 0px;
     left: 1px;
+    cursor: auto;
 }
 
 .write-item-screen{
@@ -176,6 +189,7 @@ html{
     z-index: 1;
     background-color: rgba(0, 0, 0, 0.5);
     background-blend-mode: overlay;
+    cursor: default;
 }
 
 .btn-more{
@@ -190,6 +204,7 @@ html{
     padding-right: 24px;
     border-radius: 3px;
     background-color: #dfe1e6;
+    cursor: pointer;
 }
 
 .more-tasks{
@@ -211,6 +226,7 @@ html{
     padding-left: 10px;
     padding-top: 8px;
     padding-bottom: 8px;
+    cursor: pointer;
 }
 
 .more-screen{
@@ -252,4 +268,32 @@ html{
     background-color: rgba(0, 0, 0, 0.5);
     background-blend-mode: overlay;
     z-index: 1;
+}
+
+.item-content-tasks{
+    display: flex;
+    flex-flow: column;
+    position: absolute;
+    width: 100px;
+    height: auto;
+    top: 0px;
+    left: 186px;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.item-content-tasks *{
+    border-radius: 3px;
+}
+
+.item-duedate-content{
+    padding: 7px 5px 7px 5px;
+    border-radius: 3px;
+}
+
+.time-input{
+    padding-bottom: 6px;
+}
+.item-duedate{
+    padding: 2px 5px 2px 1px;
 }

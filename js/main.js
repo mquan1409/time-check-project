@@ -24,15 +24,15 @@ function btnWriteEvent(){
     $(".btn-write").unbind();
     $(".write-item-screen").hide();
     $(".item-content").hide();
+    $(".item-content-tasks").hide();
     $(".btn-write").click(function(){
         $(this).parent().find(".item-display").hide()
         $(this).parent().find(".item-content").show();
         $(this).parent().find(".write-item-screen").show();
+        $(this).parent().find(".item-content-tasks").show();
         $(this).parent().find(".item-content").focus();
         $(this).parent().find(".item-content").focus(function(){
-            console.log("kay")
             e = this;
-            console.log(e);
             requestAnimationFrame(function(){
                 selectElementContents(e);
             });
@@ -42,11 +42,14 @@ function btnWriteEvent(){
                 $(this).parent().remove();
             }
             $(".item-content").hide();
-            $("span:hidden").html($(this).parent().find(".item-content").html());
+            $(".item-content-tasks").hide();
+            $(".item-duedate-content").hide();
+            $(this).parent().find(".item-display").html($(this).parent().find(".item-content").html());
             $(this).parent().find(".write-item-screen").hide();
             $(".item-display").show();
         });
-    })
+    });
+    // itemContentTasksEvent();
     $(".btn-write").hide();
     $("li").hover(
         function(){
@@ -60,7 +63,7 @@ function btnWriteEvent(){
             $(this).attr("style","background-color: #e6eef0");
         },
         function(){
-            $(this).attr("style","background-color: white");
+            $(this).attr("style","background-color: inherit");
         }
     );
 }
@@ -79,6 +82,18 @@ function btnAddItemEvent(){
             <span class="item-display"> </span>
             <div class="write-item-screen"></div>
             <div contenteditable="true" class="item-content" ></div>
+            <div class="item-content-tasks">
+                <div class="item-duedate">Set Due Date</div>
+                <div class="item-duedate-content">
+                    <div class="time-input">
+                        <input type="number" class="hour-input" min="0" max="23" placeholder="00">
+                        <span>:</span>
+                        <input type="number" class="minute-input" min="0" max="59" placeholder="00">
+                    </div>
+                    <input type="date" class="date-input">
+                    <!-- <div id="sub">sub</div> -->
+                </div>
+            </div>
             <div class="btn-write">
                 <i class="fas fa-pen"></i>
             </div>
@@ -89,9 +104,9 @@ function btnAddItemEvent(){
         `;
         
         e.target.parentNode.getElementsByClassName("container")[0].insertAdjacentHTML("beforeend",newItem);
+        itemContentTasksEvent();
         btnWriteEvent();
         btnDeleteItemEvent();
-        console.log($(this).siblings().find(".btn-write").last());
         $(this).siblings().find(".btn-write").last().trigger("click");
         btnMoreTasksEvent();
     });
@@ -196,6 +211,7 @@ function btnMoreTasksEvent(){
         $(this).parent().find(".more-tasks").css("z-index","1");
         $(this).parent().find(".btn-more").css("z-index","1");
         $(this).parent().find(".btn-more").css("background-color","#dfe1e6");
+        $(this).parent().find(".btn-more").css("z-index","auto");
     });
 
 
@@ -260,6 +276,18 @@ function btnMoreTasksEvent(){
     });
 }
 
+function itemsEvent(){
+    $(".item").hover(
+        function(){
+            $(this).css("background-color", "rgb(244, 245, 247)");
+        },
+        function(){
+            $(this).css("background-color", "white");
+        }
+    )
+}
+
+
 const containers = dragula([...document.getElementsByClassName("container")],{
     // revertOnSpill:true
 });
@@ -287,6 +315,8 @@ btnDeleteColEvent();
 barContainerHeadingEvent();
 
 btnMoreTasksEvent();
+
+itemsEvent();
 
 
 
